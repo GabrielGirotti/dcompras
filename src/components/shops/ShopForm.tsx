@@ -1,17 +1,10 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import ErrorMessage from "../ErrorMessage";
+import { ShopFormData } from "types";
 
 type ShopFormProps = {
-  register: UseFormRegister<{
-    shopName: string;
-    localName: string;
-    description: string;
-  }>;
-  errors: FieldErrors<{
-    shopName: string;
-    localName: string;
-    description: string;
-  }>;
+  register: UseFormRegister<ShopFormData>;
+  errors: FieldErrors<ShopFormData>;
 };
 
 export default function ShopForm({register, errors} : ShopFormProps) {

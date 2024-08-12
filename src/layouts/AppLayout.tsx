@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import LogoVertical from "@/components/LogoVertical";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Popover } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import { useState } from "react";
@@ -41,6 +42,12 @@ export default function AppLayout() {
       >
         <NavMenu handleOpen={handleOpen} />
       </nav>
+      <ToastContainer
+        theme="dark"
+        position="bottom-center"
+        pauseOnFocusLoss={false}
+        pauseOnHover={false}
+      />
     </>
   );
 }
