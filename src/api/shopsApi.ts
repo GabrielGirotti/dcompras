@@ -12,6 +12,7 @@ export async function createShop(formData: ShopFormData) {
     }
   }
 }
+
 export async function getAllShops() {
   try {
     const { data } = await api("/shops");
@@ -33,6 +34,22 @@ export async function getShopById(id: Shop["_id"]) {
   try {
     const { data } = await api(`/shops/${id}`);
 
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+type editShopType = {
+  formData: ShopFormData;
+  shopId: Shop["_id"];
+};
+
+export async function editShop({ formData, shopId }: editShopType) {
+  try {
+    const { data } = await api.put<string>(`/shops/${shopId}`, formData);
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

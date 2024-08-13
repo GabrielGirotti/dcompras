@@ -17,5 +17,5 @@ export default function EditShopView() {
   if (isLoading) return <Spinner />;
   if (isError) return <Navigate to="/404" />;
 
-  return <EditShopForm data={data} />;
+  return <EditShopForm data={data} shopId={shopId} />;
 }

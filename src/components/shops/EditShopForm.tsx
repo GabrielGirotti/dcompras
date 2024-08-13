@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShopForm from "./ShopForm";
-import { ShopFormData } from "@/types/index";
+import { Shop, ShopFormData } from "@/types/index";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { editShop } from "@/api/shopsApi";
+import { toast } from "react-toastify";
 
 type EditShopFormProps = {
   data: ShopFormData;
+  shopId: Shop["_id"];
 };
 
-export default function EditShopForm({ data }: EditShopFormProps) {
+export default function EditShopForm({ data, shopId }: EditShopFormProps) {
   const initialValues: ShopFormData = {
     shopName: data.shopName,
     localName: data.localName,
@@ -20,8 +24,30 @@ export default function EditShopForm({ data }: EditShopFormProps) {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: editShop,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["shops"] });
+      queryClient.invalidateQueries({ queryKey: ["shopEdit", shopId] });
+      toast.success(data);
+      navigate("/");
+    },
+  });
+
   const handleForm = (formData: ShopFormData) => {
-    console.log(formData)
+    const data = {
+      formData,
+      shopId,
+    };
+
+    mutate(data);
   };
 
   return (
