@@ -59,7 +59,7 @@ export default function DashboardView() {
                     </div>
                     <div className="flex justify-center items-center cursor-pointer bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300">
                       <Link
-                        to={``}
+                        to={`/shops/${shop._id}/edit`}
                         className="text-xs font-semibold font-poppins"
                       >
                         <EditSVG className=" w-5" />
