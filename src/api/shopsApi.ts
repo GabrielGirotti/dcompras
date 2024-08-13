@@ -57,3 +57,16 @@ export async function editShop({ formData, shopId }: editShopType) {
     }
   }
 }
+
+export async function deleteShop(shopId: Shop["_id"]) {
+  try {
+    const url = `/shops/${shopId}`;
+
+    const { data } = await api.delete<string>(url);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}

@@ -1,16 +1,38 @@
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getAllShops } from "@/api/shopsApi";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteShop, getAllShops } from "@/api/shopsApi";
 import Spinner from "@/components/Spinner";
 import EyeSVG from "@/svg/EyeSVG";
 import EditSVG from "@/svg/EditSVG";
 import DeleteSVG from "@/svg/DeleteSVG";
+import { toast } from "react-toastify";
+import { Shop } from "../types";
 
 export default function DashboardView() {
   const { data, isLoading } = useQuery({
     queryKey: ["shops"],
     queryFn: getAllShops,
   });
+
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteShop,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["shops"] });
+      toast.success(data);
+      navigate("/");
+    },
+  });
+
+  const handleDelete = (shopId: Shop["_id"]) => {
+    mutate(shopId);
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -69,7 +91,7 @@ export default function DashboardView() {
                       <button
                         type="button"
                         className="text-xs font-semibold font-poppins"
-                        onClick={() => {}}
+                        onClick={() => handleDelete(shop._id)}
                       >
                         <DeleteSVG className=" w-5" />
                       </button>
