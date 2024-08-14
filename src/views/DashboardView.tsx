@@ -57,7 +57,7 @@ export default function DashboardView() {
                 <div className="flex flex-col items-center justify-center min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2 flex flex-col items-center">
                     <Link
-                      to={``}
+                      to={`/shops/${shop._id}`}
                       className="text-blue font-poppins cursor-pointer text-2xl font-semibold hover:scale-105 hover:underline duration-300"
                     >
                       {shop.shopName}
@@ -71,26 +71,23 @@ export default function DashboardView() {
                   </div>
 
                   <div className=" flex items-center text-center gap-3 ">
-                    <div className=" flex justify-center items-center cursor-pointer bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300 ">
-                      <Link
-                        to={``}
-                        className=" text-xs font-semibold font-poppins"
-                      >
-                        <EyeSVG className=" w-5" />
-                      </Link>
-                    </div>
-                    <div className="flex justify-center items-center cursor-pointer bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300">
-                      <Link
-                        to={`/shops/${shop._id}/edit`}
-                        className="text-xs font-semibold font-poppins"
-                      >
-                        <EditSVG className=" w-5" />
-                      </Link>
-                    </div>
-                    <div className=" flex justify-center items-center cursor-pointer bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
+                    <Link
+                      to={`/shops/${shop._id}`}
+                      className=" cursor-pointer flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300 "
+                    >
+                      <EyeSVG className="text-xs font-semibold font-poppins w-5" />
+                    </Link>
+                    <Link
+                      to={`/shops/${shop._id}/edit`}
+                      className=" cursor-pointer flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300 "
+                    >
+                      <EditSVG className="text-xs font-semibold font-poppins w-5" />
+                    </Link>
+
+                    <div className=" flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
                       <button
                         type="button"
-                        className="text-xs font-semibold font-poppins"
+                        className="text-xs font-semibold font-poppins cursor-pointer"
                         onClick={() => handleDelete(shop._id)}
                       >
                         <DeleteSVG className=" w-5" />

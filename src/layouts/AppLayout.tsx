@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import LogoVertical from "@/components/LogoVertical";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,9 @@ export default function AppLayout() {
     <>
       <header className=" bg-black py-5 flex flex-col justify-center items-center relative">
         <div className="w-40">
-          <LogoVertical />
+          <Link to="/">
+            <LogoVertical />
+          </Link>
         </div>
         <div className=" absolute right-8 bottom-4 md:right-32">
           <Popover>
