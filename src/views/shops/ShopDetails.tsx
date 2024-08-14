@@ -1,5 +1,6 @@
 import { getShopById } from "@/api/shopsApi";
 import AddListModal from "@/components/lists/AddListModal";
+import AllLists from "@/components/lists/AllLists";
 import Spinner from "@/components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -24,13 +25,14 @@ export default function ShopDetails() {
         {data.shopName}
       </h1>
       <p className="py-5 text-center font-poppins text-black font-semibold">
-        {data.description}
+        {data.localName}
       </p>
+      <AllLists lists={data.lists} />
       <nav>
         <button
           type="button"
           onClick={() => navigate(location.pathname + "?newlist=true")}
-          className=" bg-blue text-white rounded cursor-pointer px-10 py-3 font-poppins font-semibold hover:bg-yellow hover:text-black duration-300"
+          className="mt-5 bg-blue text-white rounded cursor-pointer px-10 py-3 font-poppins font-semibold hover:bg-yellow hover:text-black duration-300"
         >
           Agregar lista
         </button>

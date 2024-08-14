@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ListForm from "./ListForm";
 import { useForm } from "react-hook-form";
 import { ListFormData } from "@/types/index";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createList } from "@/api/listApi";
 import { toast } from "react-toastify";
 
@@ -29,12 +29,15 @@ export default function AddListModal() {
   const params = useParams();
   const shopId = params.shopId!;
 
+  const queryClient = useQueryClient();
+  
   const { mutate } = useMutation({
     mutationFn: createList,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["shopEdit"] });
       toast.success(data);
       navigate(location.pathname, { replace: true });
     },

@@ -63,7 +63,7 @@ export default function DashboardView() {
                       {shop.shopName}
                     </Link>
                     <p className="text-sm font-semibold text-black font-poppins">
-                      Local: {shop.localName}
+                     {shop.localName}
                     </p>
                     <p className="text-sm text-black pb-3">
                       {shop.description}
