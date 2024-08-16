@@ -2,6 +2,7 @@ import { z } from "zod";
 
 // LISTS
 export const listStatus = z.enum(["toShop", "toChangeSome", "bought", "ideas"]);
+export type ListStat = z.infer<typeof listStatus>;
 
 export const listSchema = z.object({
   _id: z.string(),
@@ -9,6 +10,8 @@ export const listSchema = z.object({
   description: z.string(),
   shop: z.string(),
   status: listStatus,
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export type List = z.infer<typeof listSchema>;

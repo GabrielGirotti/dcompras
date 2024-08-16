@@ -1,5 +1,6 @@
 import { List } from "@/types/index";
 import ListCard from "./ListCard";
+import { statusTranslation } from "@/translates/es";
 
 type AllListsProps = {
   lists: List[];
@@ -14,13 +15,6 @@ const initialValuesStatus: GroupedLists = {
   toChangeSome: [],
   bought: [],
   ideas: [],
-};
-
-const statusTranslation: { [key: string]: string } = {
-  toShop: "Comprar",
-  toChangeSome: "Hacer cambio",
-  bought: "Comprado",
-  ideas: "Algunas ideas",
 };
 
 const statusStyles: { [key: string]: string } = {

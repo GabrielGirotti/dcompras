@@ -40,7 +40,7 @@ export default function ListForm({ errors, register }: ListFormProps) {
         <textarea
           id="description"
           placeholder="Descripción de la lista"
-          className={`w-full p-3 shadow-md rounded ${
+          className={` h-[30vh] w-full p-3 shadow-md rounded ${
             errors.description && "border-red border-2"
           }`}
           {...register("description", {

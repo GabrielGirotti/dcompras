@@ -2,6 +2,7 @@ import { getShopById } from "@/api/shopsApi";
 import AddListModal from "@/components/lists/AddListModal";
 import AllLists from "@/components/lists/AllLists";
 import EditDataList from "@/components/lists/EditDataList";
+import ListModal from "@/components/lists/ListModal";
 import Spinner from "@/components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
@@ -49,6 +50,7 @@ export default function ShopDetails() {
 
       <AddListModal />
       <EditDataList/>
+      <ListModal/>
     </>
   );
 }

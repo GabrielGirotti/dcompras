@@ -1,11 +1,12 @@
 import { isAxiosError } from "axios";
-import { List, ListFormData, Shop } from "../types";
+import { List, ListFormData, listSchema, Shop } from "../types";
 import api from "@/lib/axios";
 
 type ListType = {
   formData: ListFormData;
   shopId: Shop["_id"];
   editListId: List["_id"];
+  status: List["status"];
 };
 
 export async function createList({
@@ -29,7 +30,12 @@ export async function getListById({
   try {
     const url = `/shops/${shopId}/lists/${editListId}`;
     const { data } = await api(url);
-    return data;
+    const response = listSchema.safeParse(data);
+    if (response.success) {
+      return response.data;
+    } else {
+      throw new Error("Hubo un error en la peticion");
+    }
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
@@ -59,6 +65,23 @@ export async function deleteList({
     const url = `/shops/${shopId}/lists/${editListId}`;
 
     const { data } = await api.delete<string>(url);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+export async function updateStatus({
+  shopId,
+  editListId,
+  status,
+}: Pick<ListType, "shopId" | "editListId" | "status">) {
+  try {
+    const url = `/shops/${shopId}/lists/${editListId}/status`;
+
+    const { data } = await api.post<string>(url, { status });
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

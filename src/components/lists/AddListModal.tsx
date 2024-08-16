@@ -24,13 +24,14 @@ export default function AddListModal() {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({ defaultValues: initialValues });
 
   const params = useParams();
   const shopId = params.shopId!;
 
   const queryClient = useQueryClient();
-  
+
   const { mutate } = useMutation({
     mutationFn: createList,
     onError: (error) => {
@@ -39,6 +40,7 @@ export default function AddListModal() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["shopEdit"] });
       toast.success(data);
+      reset();
       navigate(location.pathname, { replace: true });
     },
   });
