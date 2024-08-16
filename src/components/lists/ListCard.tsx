@@ -1,7 +1,11 @@
+import { deleteList } from "@/api/listApi";
 import DeleteSVG from "@/svg/DeleteSVG";
 import EditSVG from "@/svg/EditSVG";
 import EyeSVG from "@/svg/EyeSVG";
-import { Link } from "react-router-dom";
+import { List } from "@/types/index";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type ListCardProps = {
   list: {
@@ -14,6 +18,32 @@ type ListCardProps = {
 };
 
 export default function ListCard({ list }: ListCardProps) {
+  const params = useParams();
+  const shopId = params.shopId!;
+
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: deleteList,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["shopEdit", shopId] });
+      toast.success(data);
+      navigate(location.pathname);
+    },
+  });
+
+  const handleDelete = (editListId: List["_id"]) => {
+    const data = {
+      shopId,
+      editListId,
+    };
+
+    mutate(data);
+  };
+
   return (
     <li className="flex flex-col items-center shadow-lg p-5 gap-4 rounded-lg">
       <div className="flex flex-col items-center">
@@ -35,18 +65,21 @@ export default function ListCard({ list }: ListCardProps) {
         >
           <EyeSVG className="text-xs font-semibold font-poppins w-5" />
         </Link>
-        <Link
-          to={``}
+        <button
+          type="button"
+          onClick={() =>
+            navigate(location.pathname + `?editListId=${list._id}`)
+          }
           className=" cursor-pointer flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300 "
         >
           <EditSVG className="text-xs font-semibold font-poppins w-5" />
-        </Link>
+        </button>
 
         <div className=" flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
           <button
             type="button"
             className="text-xs font-semibold font-poppins cursor-pointer"
-            onClick={() => {}}
+            onClick={() => handleDelete(list._id)}
           >
             <DeleteSVG className=" w-5" />
           </button>

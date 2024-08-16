@@ -37,7 +37,6 @@ export default function AllLists({ lists }: AllListsProps) {
     return { ...acc, [list.status]: currentGroup };
   }, initialValuesStatus);
 
-  console.log(groupedLists);
   return (
     <>
       <h2 className="text-black font-poppins text-2xl font-semibold ">
