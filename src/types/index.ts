@@ -1,5 +1,20 @@
 import { z } from "zod";
 
+//AUTH USERS
+const authSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+  name: z.string(),
+  password_confirmation: z.string(),
+  token: z.string()
+});
+
+type Auth = z.infer<typeof authSchema>;
+export type UserLoginForm = Pick<Auth, "email" | "password">;
+export type UserRegistrationForm = Pick<Auth, "email" | "password" | "name" | "password_confirmation">;
+
+export type ConfirmToken = Pick<Auth, "token">;
+
 // LISTS
 export const listStatus = z.enum(["toShop", "toChangeSome", "bought", "ideas"]);
 export type ListStat = z.infer<typeof listStatus>;

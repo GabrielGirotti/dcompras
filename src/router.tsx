@@ -4,6 +4,10 @@ import DashboardView from "@/views/DashboardView";
 import CreateShopView from "./views/shops/CreateShopView";
 import EditShopView from "./views/shops/EditShopView";
 import ShopDetails from "./views/shops/ShopDetails";
+import AuthLayout from "./layouts/AuthLayout";
+import LoginView from "./views/auth/LoginView";
+import RegisterView from "./views/auth/RegisterView";
+import ConfirmAccountView from "./views/auth/ConfirmAccountView";
 
 export default function Router() {
   return (
@@ -14,6 +18,15 @@ export default function Router() {
           <Route path="/shops/create" element={<CreateShopView />} />
           <Route path="/shops/:shopId" element={<ShopDetails />} />
           <Route path="/shops/:shopId/edit" element={<EditShopView />} />
+        </Route>
+
+        <Route element={<AuthLayout />}>
+          <Route path="/auth/login" element={<LoginView />} />
+          <Route path="/auth/register" element={<RegisterView />} />
+          <Route
+            path="/auth/confirm-account"
+            element={<ConfirmAccountView />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
