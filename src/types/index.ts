@@ -14,6 +14,9 @@ export type UserLoginForm = Pick<Auth, "email" | "password">;
 export type UserRegistrationForm = Pick<Auth, "email" | "password" | "name" | "password_confirmation">;
 
 export type ConfirmToken = Pick<Auth, "token">;
+export type RequestConfirmationCodeForm = Pick<Auth, "email">;
+
+
 
 // LISTS
 export const listStatus = z.enum(["toShop", "toChangeSome", "bought", "ideas"]);

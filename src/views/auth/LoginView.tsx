@@ -20,7 +20,7 @@ export default function LoginView() {
     <>
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="mt-10 p-2 rounded md:w-[500px] "
+        className="mt-5 p-2 rounded md:w-[500px] "
         noValidate
       >
         <div className="mb-5 space-y-1 flex flex-col">
