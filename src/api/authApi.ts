@@ -35,3 +35,14 @@ export async function requestNewToken(formData: RequestConfirmationCodeForm) {
     }
   }
 }
+
+export async function login(formData: RequestConfirmationCodeForm) {
+  try {
+    const { data } = await api.post(`/auth/login`, formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
