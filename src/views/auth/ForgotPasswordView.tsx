@@ -1,51 +1,58 @@
 import { useForm } from "react-hook-form";
-import { UserLoginForm } from "@/types/index";
+import { Link } from "react-router-dom";
+import { ForgotPasswordForm } from "../../types";
 import ErrorMessage from "@/components/ErrorMessage";
-import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "@/api/authApi";
+import { changePassword } from "@/api/authApi";
 import { toast } from "react-toastify";
 
-export default function LoginView() {
-  const initialValues: UserLoginForm = {
+export default function ForgotPasswordView() {
+  const initialValues: ForgotPasswordForm = {
     email: "",
-    password: "",
   };
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const navigate = useNavigate();
-
   const { mutate } = useMutation({
-    mutationFn: login,
+    mutationFn: changePassword,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
       toast.success(data);
-      navigate("/");
+      reset();
     },
   });
 
-  const handleLogin = (formData: UserLoginForm) => {
+  const handleForgotPassword = (formData: ForgotPasswordForm) => {
     mutate(formData);
   };
 
   return (
     <>
+      <p className="text-lg  text-white mt-5 text-center">
+        Ingresa tu E-mail.{" "}
+      </p>
+      <p className="text-lg font-light text-white text-center">
+        Te enviaremos instrucciones para{" "}
+        <span className=" text-yellow font-bold">reestablecer tu password</span>
+      </p>
       <form
-        onSubmit={handleSubmit(handleLogin)}
+        onSubmit={handleSubmit(handleForgotPassword)}
         className="mt-5 p-2 rounded md:w-[500px] "
         noValidate
       >
         <div className="mb-5 space-y-1 flex flex-col">
-          <label className="text-lg font-poppins font-semibold text-white">
+          <label
+            className="text-lg font-poppins font-semibold text-white"
+            htmlFor="email"
+          >
             E-mail
           </label>
-
           <input
             id="email"
             type="email"
@@ -54,7 +61,7 @@ export default function LoginView() {
               errors.email && "border-red border-2"
             }`}
             {...register("email", {
-              required: "El Email es obligatorio",
+              required: "El Email de registro es obligatorio",
               pattern: {
                 value: /\S+@\S+\.\S+/,
                 message: "E-mail no válido",
@@ -64,46 +71,28 @@ export default function LoginView() {
           {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
         </div>
 
-        <div className="mb-5 space-y-1 flex flex-col">
-          <label className="text-lg font-poppins font-semibold text-white">
-            Password
-          </label>
-
-          <input
-            type="password"
-            placeholder="Password de Registro"
-            className={`w-full p-3 shadow-md rounded ${
-              errors.password && "border-red border-2"
-            }`}
-            {...register("password", {
-              required: "El Password es obligatorio",
-            })}
-          />
-          {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
-          )}
-        </div>
-
         <input
           type="submit"
-          value="Iniciar sesión"
+          value="Enviar instrucciones"
           className="font-semibold font-poppins bg-blue text-white cursor-pointer w-full p-3 rounded hover:bg-yellow hover:text-black duration-300"
         />
       </form>
+
       <nav className="mt-5 flex flex-col gap-4">
+        <Link
+          className="text-center font-poppins text-white"
+          to={"/auth/login"}
+        >
+          ¿Ya tienes cuenta?{" "}
+          <span className="font-semibold text-yellow">Iniciar sesión</span>
+        </Link>
+
         <Link
           className="text-center font-poppins text-white"
           to={"/auth/register"}
         >
           ¿No tienes cuenta?{" "}
           <span className="font-semibold text-yellow">Crea una</span>
-        </Link>
-        <Link
-          className="text-center font-poppins text-white"
-          to={"/auth/forgot-password"}
-        >
-          ¿No recuerdas tu password?{" "}
-          <span className="font-semibold text-yellow">Reestablécelo aquí</span>
         </Link>
       </nav>
     </>

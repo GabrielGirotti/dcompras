@@ -43,7 +43,7 @@ export async function getListById({
   }
 }
 
-export async function editList({ shopId, editListId, formData }: ListType) {
+export async function editList({ shopId, editListId, formData }: Pick<ListType, "formData" | "shopId" | "editListId">) {
   try {
     const { data } = await api.put<string>(
       `/shops/${shopId}/lists/${editListId}`,
