@@ -13,6 +13,7 @@ import NewPasswordView from "./views/auth/NewPasswordView";
 
 import HomeView from "./views/home/HomeView";
 import HomeLayout from "./layouts/HomeLayout";
+import PrivacyView from "./views/home/PrivacyView";
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
 
         <Route element={<HomeLayout />}>
           <Route path="/" element={<HomeView />} index />
+          <Route path="/privacy" element={<PrivacyView/>} />
           <Route path="/auth/login" element={<LoginView />} />
           <Route path="/auth/register" element={<RegisterView />} />
           <Route

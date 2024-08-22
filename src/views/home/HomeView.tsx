@@ -30,6 +30,13 @@ export default function HomeView() {
               ¿No tienes cuenta?{" "}
               <span className="font-semibold text-yellow">Crea una</span>
             </Link>
+
+            <Link
+              className="text-center font-poppins text-white"
+              to={"/privacy"}
+            >
+              Políticas de privacidad
+            </Link>
           </nav>
         </div>
       </div>
