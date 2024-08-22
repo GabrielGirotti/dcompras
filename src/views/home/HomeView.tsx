@@ -7,7 +7,7 @@ export default function HomeView() {
         <img src="/home_image.svg" alt="Imagen DCompras" />
 
         <div className="flex flex-col max-w-[500px]">
-          <h1 className=" font-poppins font-semibold text-xl text-yellow mt-5 text-center px-6">
+          <h1 className=" font-poppins font-semibold text-2xl text-yellow mt-5 text-center px-6">
             ¡Únete a DCompras!
           </h1>
           <p className=" font-poppins text-base text-white text-center px-2 max-w-[700px] mt-5">
