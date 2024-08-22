@@ -21,7 +21,7 @@ export async function getAllShops() {
     if (response.success) {
       return response.data;
     } else {
-      throw new Error("Hubo un error en la peticion");
+      throw new Error("Hubo un error en la petición");
     }
   } catch (error) {
     if (isAxiosError(error) && error.response) {

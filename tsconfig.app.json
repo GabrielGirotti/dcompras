@@ -17,6 +17,7 @@
       "@/svg/*": ["svg/*"],
       "@/utils/*": ["utils/*"],
       "@/translates/*": ["translates/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/types/*": ["types/*"]
     },
 

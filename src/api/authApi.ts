@@ -6,6 +6,7 @@ import {
   NewPasswordForm,
   RequestConfirmationCodeForm,
   UserRegistrationForm,
+  userSchema,
 } from "../types";
 
 export async function createUser(formData: UserRegistrationForm) {
@@ -84,6 +85,22 @@ export async function updatePassword({ formData, token }: updatePasswordType) {
   try {
     const { data } = await api.post(`/auth/update-password/${token}`, formData);
     return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+export async function getUserLogin() {
+  try {
+    const { data } = await api.get(`/auth/user`);
+    const response = userSchema.safeParse(data);
+    if (response.success) {
+      return response.data;
+    } else {
+      throw new Error("Hubo un error al iniciar sesión");
+    }
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
