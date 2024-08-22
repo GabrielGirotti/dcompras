@@ -26,7 +26,7 @@ export default function DashboardView() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["shops"] });
       toast.success(data);
-      navigate("/");
+      navigate("/shops");
     },
   });
 

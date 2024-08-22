@@ -33,7 +33,7 @@ export default function NavMenu({ handleOpen, data }: NavMenuProps) {
       <Link to="/profile" className="block p-2 hover:text-yellow">
         Mi Perfil
       </Link>
-      <Link to="/" className="block p-2 hover:text-yellow">
+      <Link to="/shops" className="block p-2 hover:text-yellow">
         Mis Proyectos
       </Link>
       <button

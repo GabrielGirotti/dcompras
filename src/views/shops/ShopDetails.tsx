@@ -42,7 +42,7 @@ export default function ShopDetails() {
       <nav className="my-5">
         <Link
           className=" bg-blue text-white rounded cursor-pointer px-10 py-3 font-poppins font-semibold hover:bg-yellow hover:text-black duration-300"
-          to="/"
+          to="/shops"
         >
           Volver
         </Link>

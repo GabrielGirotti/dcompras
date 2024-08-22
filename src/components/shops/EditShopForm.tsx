@@ -37,7 +37,7 @@ export default function EditShopForm({ data, shopId }: EditShopFormProps) {
       queryClient.invalidateQueries({ queryKey: ["shops"] });
       queryClient.invalidateQueries({ queryKey: ["shopEdit", shopId] });
       toast.success(data);
-      navigate("/");
+      navigate("/shops");
     },
   });
 
@@ -74,7 +74,7 @@ export default function EditShopForm({ data, shopId }: EditShopFormProps) {
       <nav className="my-5">
         <Link
           className=" bg-blue text-white rounded cursor-pointer px-10 py-3 font-poppins font-semibold hover:bg-yellow hover:text-black duration-300"
-          to="/"
+          to="/shops"
         >
           Volver
         </Link>
