@@ -24,7 +24,7 @@ export default function AppLayout() {
       <>
         <header className=" bg-black py-5 flex flex-col justify-center items-center relative">
           <div className="w-40">
-            <Link to="/">
+            <Link to="/shops">
               <LogoVertical />
             </Link>
           </div>

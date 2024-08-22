@@ -26,7 +26,7 @@ export default function LoginView() {
     },
     onSuccess: () => {
       toast.success('Iniciando sesión');
-      navigate("/");
+      navigate("/shops");
     },
   });
 
