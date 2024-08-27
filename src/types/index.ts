@@ -71,3 +71,14 @@ export const dashboardShopScema = z.array(
 
 export type Shop = z.infer<typeof shopsSchema>;
 export type ShopFormData = Pick<Shop, "shopName" | "localName" | "description">;
+
+// TEAM
+
+export const teamMemberSchema = userSchema.pick({
+  name: true,
+  email: true,
+  _id: true,
+});
+
+export type TeamMember = z.infer<typeof teamMemberSchema>;
+export type TeamMemberForm = Pick<TeamMember, "email">;

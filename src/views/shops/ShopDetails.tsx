@@ -30,6 +30,12 @@ export default function ShopDetails() {
         {data.localName}
       </p>
       <AllLists lists={data.lists} />
+      <Link
+        to={"team"}
+        className="mt-5 hover:scale-105 rounded cursor-pointer px-10 py-3 font-poppins font-semibold bg-yellow text-black duration-300"
+      >
+        Colaboradores
+      </Link>
       <nav>
         <button
           type="button"
@@ -49,8 +55,8 @@ export default function ShopDetails() {
       </nav>
 
       <AddListModal />
-      <EditDataList/>
-      <ListModal/>
+      <EditDataList />
+      <ListModal />
     </>
   );
 }

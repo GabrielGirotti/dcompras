@@ -14,6 +14,7 @@ import NewPasswordView from "./views/auth/NewPasswordView";
 import HomeView from "./views/home/HomeView";
 import HomeLayout from "./layouts/HomeLayout";
 import PrivacyView from "./views/home/PrivacyView";
+import ShopTeamView from "./views/shops/ShopTeamView";
 
 export default function Router() {
   return (
@@ -24,6 +25,7 @@ export default function Router() {
           <Route path="/shops/create" element={<CreateShopView />} />
           <Route path="/shops/:shopId" element={<ShopDetails />} />
           <Route path="/shops/:shopId/edit" element={<EditShopView />} />
+          <Route path="/shops/:shopId/team" element={<ShopTeamView/>} />
         </Route>
 
         <Route element={<HomeLayout />}>
