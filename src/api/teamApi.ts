@@ -1,5 +1,10 @@
 import { isAxiosError } from "axios";
-import { Shop, TeamMember, TeamMemberForm } from "../types";
+import {
+  alltemMembersSchema,
+  Shop,
+  TeamMember,
+  TeamMemberForm,
+} from "../types";
 import api from "@/lib/axios";
 
 type teamMemberProps = {
@@ -36,9 +41,23 @@ export async function addMember({
   }
 }
 
-export async function getAllMember(shopId: Shop['_id']) {
+export async function getAllMember(shopId: Shop["_id"]) {
   try {
     const { data } = await api(`/shops/${shopId}/team`);
+    const response = alltemMembersSchema.safeParse(data);
+    if (response.success) {
+      return response.data;
+    }
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+  }
+}
+
+export async function deleteUserFromShop({shopId, userId} : {shopId: Shop["_id"],  userId: TeamMember['_id']}) {
+  try {
+    const { data } = await api.delete(`/shops/${shopId}/team/${userId}`);
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

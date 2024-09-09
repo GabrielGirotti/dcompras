@@ -1,6 +1,6 @@
 import { addMember } from "@/api/teamApi";
 import { TeamMember } from "@/types/index";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,14 +13,16 @@ export default function MemberFound({ user, resetForm }: MemberFoundProps) {
   const params = useParams();
   const shopId = params.shopId!;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: addMember,
     onError: (error) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["shopTeam", shopId] });
       toast.success(data);
       resetForm();
       navigate(location.pathname, { replace: true });

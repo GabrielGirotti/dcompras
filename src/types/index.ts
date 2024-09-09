@@ -79,6 +79,6 @@ export const teamMemberSchema = userSchema.pick({
   email: true,
   _id: true,
 });
-
+export const alltemMembersSchema = z.array(teamMemberSchema)
 export type TeamMember = z.infer<typeof teamMemberSchema>;
 export type TeamMemberForm = Pick<TeamMember, "email">;
