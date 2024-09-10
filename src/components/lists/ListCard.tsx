@@ -16,9 +16,10 @@ type ListCardProps = {
     shop: string;
     status: "toShop" | "toChangeSome" | "bought" | "ideas";
   };
+  canDelete: boolean;
 };
 
-export default function ListCard({ list }: ListCardProps) {
+export default function ListCard({ list, canDelete }: ListCardProps) {
   const params = useParams();
   const shopId = params.shopId!;
 
@@ -59,7 +60,10 @@ export default function ListCard({ list }: ListCardProps) {
         </button>
         <ul>
           {listSlice?.map((item) => (
-            <li key={uuidv4()} className="pt-1 font-poppins text-black font-semibold">
+            <li
+              key={uuidv4()}
+              className="pt-1 font-poppins text-black font-semibold"
+            >
               {item}
             </li>
           ))}
@@ -91,15 +95,17 @@ export default function ListCard({ list }: ListCardProps) {
           <EditSVG className="text-xs font-semibold font-poppins w-5" />
         </button>
 
-        <div className=" flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
-          <button
-            type="button"
-            className="text-xs font-semibold font-poppins cursor-pointer"
-            onClick={() => handleDelete(list._id)}
-          >
-            <DeleteSVG className=" w-5" />
-          </button>
-        </div>
+        {canDelete && (
+          <div className=" flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
+            <button
+              type="button"
+              className="text-xs font-semibold font-poppins cursor-pointer"
+              onClick={() => handleDelete(list._id)}
+            >
+              <DeleteSVG className=" w-5" />
+            </button>
+          </div>
+        )}
       </div>
     </li>
   );

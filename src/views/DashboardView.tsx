@@ -7,8 +7,11 @@ import EditSVG from "@/svg/EditSVG";
 import DeleteSVG from "@/svg/DeleteSVG";
 import { toast } from "react-toastify";
 import { Shop } from "../types";
+import { userAuth } from "@/hooks/useAuth";
 
 export default function DashboardView() {
+  const { data: user, isLoading: authLoading } = userAuth();
+
   const { data, isLoading } = useQuery({
     queryKey: ["shops"],
     queryFn: getAllShops,
@@ -34,7 +37,7 @@ export default function DashboardView() {
     mutate(shopId);
   };
 
-  if (isLoading) return <Spinner />;
+  if (isLoading && authLoading) return <Spinner />;
 
   return (
     <>
@@ -52,8 +55,21 @@ export default function DashboardView() {
             {data.map((shop) => (
               <li
                 key={shop._id}
-                className=" flex justify-center gap-x-6 px-5 py-10 shadow-lg bg-white rounded-2xl hover:bg-yellow/20 duration-300 w-[500px] max-w-[80vw]"
+                className=" relative flex justify-center gap-x-6 px-5 py-10 shadow-lg bg-white rounded-2xl hover:bg-yellow/20 duration-300 w-[500px] max-w-[80vw]"
               >
+                {user?._id === shop.manager ? (
+                  <div className="px-2 py-1 bg-blue absolute top-0 w-full">
+                    <p className="font-poppins text-xs text-white text-center">
+                      Compra propia
+                    </p>
+                  </div>
+                ) : (
+                  <div className="px-2 py-1 bg-yellow absolute top-0 w-full">
+                    <p className="font-poppins text-xs text-black text-center">
+                      Invitado a compra
+                    </p>
+                  </div>
+                )}
                 <div className="flex flex-col items-center justify-center min-w-0 gap-x-4">
                   <div className="min-w-0 flex-auto space-y-2 flex flex-col items-center">
                     <Link
@@ -63,7 +79,7 @@ export default function DashboardView() {
                       {shop.shopName}
                     </Link>
                     <p className="text-sm font-semibold text-black font-poppins">
-                     {shop.localName}
+                      {shop.localName}
                     </p>
                     <p className="text-sm text-black pb-3">
                       {shop.description}
@@ -77,22 +93,27 @@ export default function DashboardView() {
                     >
                       <EyeSVG className="text-xs font-semibold font-poppins w-5" />
                     </Link>
-                    <Link
-                      to={`/shops/${shop._id}/edit`}
-                      className=" cursor-pointer flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300 "
-                    >
-                      <EditSVG className="text-xs font-semibold font-poppins w-5" />
-                    </Link>
 
-                    <div className=" flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
-                      <button
-                        type="button"
-                        className="text-xs font-semibold font-poppins cursor-pointer"
-                        onClick={() => handleDelete(shop._id)}
-                      >
-                        <DeleteSVG className=" w-5" />
-                      </button>
-                    </div>
+                    {user?._id === shop.manager && (
+                      <>
+                        <Link
+                          to={`/shops/${shop._id}/edit`}
+                          className=" cursor-pointer flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-blue hover:text-white duration-300 "
+                        >
+                          <EditSVG className="text-xs font-semibold font-poppins w-5" />
+                        </Link>
+
+                        <div className=" flex justify-center items-center  bg-yellow rounded-lg px-4 py-2 text-black hover:bg-red hover:text-white duration-300">
+                          <button
+                            type="button"
+                            className="text-xs font-semibold font-poppins cursor-pointer"
+                            onClick={() => handleDelete(shop._id)}
+                          >
+                            <DeleteSVG className=" w-5" />
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </li>

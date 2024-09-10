@@ -4,6 +4,7 @@ import { statusTranslation } from "@/translates/es";
 
 type AllListsProps = {
   lists: List[];
+  canDelete: boolean
 };
 
 type GroupedLists = {
@@ -24,7 +25,7 @@ const statusStyles: { [key: string]: string } = {
   ideas: "bg-yellow/30 text-black",
 };
 
-export default function AllLists({ lists }: AllListsProps) {
+export default function AllLists({ lists, canDelete }: AllListsProps) {
   const groupedLists = lists.reduce((acc, list) => {
     let currentGroup = acc[list.status] ? [...acc[list.status]] : [];
     currentGroup = [...currentGroup, list];
@@ -54,7 +55,7 @@ export default function AllLists({ lists }: AllListsProps) {
                   No Hay listas
                 </li>
               ) : (
-                lists.map((list) => <ListCard key={list._id} list={list} />)
+                lists.map((list) => <ListCard key={list._id} list={list} canDelete={canDelete} />)
               )}
             </ul>
           </div>

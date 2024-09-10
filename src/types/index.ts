@@ -58,6 +58,7 @@ export const shopsSchema = z.object({
   shopName: z.string(),
   localName: z.string(),
   description: z.string(),
+  manager: z.string(userSchema.pick({_id: true}))
 });
 
 export const dashboardShopScema = z.array(
@@ -66,6 +67,7 @@ export const dashboardShopScema = z.array(
     shopName: true,
     localName: true,
     description: true,
+    manager: true
   })
 );
 
