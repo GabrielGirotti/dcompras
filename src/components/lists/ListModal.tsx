@@ -50,7 +50,7 @@ export default function ListModal() {
   });
 
   const handleStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const status = e.target.value as ListStat
+    const status = e.target.value as ListStat;
     const data = {
       shopId,
       editListId,
@@ -102,6 +102,7 @@ export default function ListModal() {
                     >
                       {data.name}
                     </Dialog.Title>
+
                     <div className="my-3 ">
                       <label className="font-poppins text-black ">
                         Estado Actual:
@@ -134,6 +135,23 @@ export default function ListModal() {
                         </li>
                       ))}
                     </ul>
+
+                    <p className="pt-2 font-poppins text-blue font-semibold text-sm capitalize">
+                      Historial de cambios:
+                    </p>
+                    <ul className=" list-decimal">
+                    {data.completedBy.map((activityLog) => (
+                      <li
+                        key={activityLog._id}
+                        className="font-poppins text-black text-sm mt-2"
+                      >
+                        Ubicado en {statusTranslation[activityLog.status]} por:{" "}
+                        <span className="font-poppins text-blue ">
+                          {activityLog.user.name}
+                        </span>
+                      </li>
+                    ))}</ul>
+
                     <p className="mt-6 text-sm text-black font-poppins">
                       Agregada el: {formDate(data.createdAt)}
                     </p>

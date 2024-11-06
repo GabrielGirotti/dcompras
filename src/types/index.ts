@@ -44,6 +44,13 @@ export const listSchema = z.object({
   description: z.string(),
   shop: z.string(),
   status: listStatus,
+  completedBy: z.array(
+    z.object({
+      _id: z.string(),
+      user: userSchema,
+      status: listStatus,
+    })
+  ),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -58,7 +65,7 @@ export const shopsSchema = z.object({
   shopName: z.string(),
   localName: z.string(),
   description: z.string(),
-  manager: z.string(userSchema.pick({_id: true}))
+  manager: z.string(userSchema.pick({ _id: true })),
 });
 
 export const dashboardShopScema = z.array(
@@ -67,7 +74,7 @@ export const dashboardShopScema = z.array(
     shopName: true,
     localName: true,
     description: true,
-    manager: true
+    manager: true,
   })
 );
 
@@ -81,6 +88,6 @@ export const teamMemberSchema = userSchema.pick({
   email: true,
   _id: true,
 });
-export const alltemMembersSchema = z.array(teamMemberSchema)
+export const alltemMembersSchema = z.array(teamMemberSchema);
 export type TeamMember = z.infer<typeof teamMemberSchema>;
 export type TeamMemberForm = Pick<TeamMember, "email">;
